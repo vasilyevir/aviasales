@@ -9,7 +9,7 @@ const airFlights: Array<Airflight> = [
   {
     cost: 13400,
     companyName: 's7',
-    companyLogo: '../../assets/images/s7.svg',
+    companyLogo: './assets/images/s7.svg',
     travel: 'MOW – HKT',
     startTravel: '10:45',
     endTravel: '8.00',
@@ -19,7 +19,7 @@ const airFlights: Array<Airflight> = [
   {
     cost: 13400,
     companyName: 's7',
-    companyLogo: '../../assets/images/s7.svg',
+    companyLogo: './assets/images/s7.svg',
     travel: 'MOW – HKT',
     startTravel: '10:45',
     endTravel: '8.00',
@@ -29,7 +29,7 @@ const airFlights: Array<Airflight> = [
   {
     cost: 13400,
     companyName: 's7',
-    companyLogo: '../../assets/images/s7.svg',
+    companyLogo: './assets/images/s7.svg',
     travel: 'MOW – HKT',
     startTravel: '10:45',
     endTravel: '8.00',
@@ -72,11 +72,11 @@ const filters: Array<Filter> = [
         value: 'All',
       },
       {
-        name: 'S7',
+        name: 'S7 Airlines',
         value: 'S7',
       },
       {
-        name: 'Xiamen',
+        name: 'XiamenAir',
         value: 'Xiamen',
       },
     ],
