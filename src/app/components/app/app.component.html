@@ -1,0 +1,60 @@
+<div class="root">
+  <div class="content">
+    <img src="./assets/images/Logo.svg" alt="logo" class="logo"/>
+    <div class="main"  [formGroup]="filterForm">
+        <div class="inputs-container">
+          <div class="input">
+            <h2 class="input__header">{{filters[0].title}}</h2>
+            <div class="input__container" *ngFor="let valueInput of filters[0].value; let i = index">
+              <label>
+                <input
+                  class="input__hidden"
+                  type="checkbox"
+                  [value]="valueInput.value"
+                  (change)="onCheckChange($event)"
+                >
+                <span class="input__side-menu input__side-menu_checkbox"></span>
+                <span class="input__label-text">{{valueInput.name}}</span>
+              </label>
+            </div>
+          </div>
+          <div class="input">
+              <h2 class="input__header">{{filters[1].title}}</h2>
+              <div class="input__container" *ngFor="let valueInput of filters[1].value; let i = index">
+                <label>
+                  <input
+                    type="radio"
+                    class="input__hidden"
+                    formControlName="{{filters[1].name}}"
+                    [value]="valueInput.value"
+                    (change)="change($event, valueInput.value, filters[1].name)"
+                  >
+                  <span class="input__side-menu input__side-menu_radio"></span>
+                  <span class="input__label-text">{{valueInput.name}}</span>
+                </label>
+              </div>
+            </div>
+        </div>
+        <div class="air-flights">
+          <div class="input input_air-flights">
+            <label class="input__label" *ngFor="let valueInput of filters[2].value; let i = index">
+              <input
+                type="radio"
+                class="input__hidden"
+                formControlName="{{filters[2].name}}"
+                [value]="valueInput.value"
+                (change)="change($event, valueInput.value, filters[2].name)"
+              >
+              <span class="input__side-menu_popular input__side-menu">
+                 <span>{{valueInput.name}}</span>
+              </span>
+            </label>
+          </div>
+          <div class="air-flights__flight-container">
+            <app-airflight *ngFor="let airFlight of airFlights" [airFlight]="airFlight"></app-airflight>
+          </div>
+          <button class="button">Показать еще 5 билетов</button>
+        </div>
+    </div>
+  </div>
+</div>
