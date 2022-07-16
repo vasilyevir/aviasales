@@ -1,41 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { Subject } from 'rxjs';
+import { forkJoin, of, Subject } from 'rxjs';
 import { Airflight } from '../../Types/Airflight';
 import { Filter } from '../../Types/Filter';
-
-const airFlights: Array<Airflight> = [
-  {
-    cost: 13400,
-    companyName: 's7',
-    companyLogo: './assets/images/s7.svg',
-    travel: 'MOW – HKT',
-    startTravel: '10:45',
-    endTravel: '8.00',
-    timeInTravel: '21ч 15м',
-    transfers: [],
-  },
-  {
-    cost: 13400,
-    companyName: 's7',
-    companyLogo: './assets/images/s7.svg',
-    travel: 'MOW – HKT',
-    startTravel: '10:45',
-    endTravel: '8.00',
-    timeInTravel: '21ч 15м',
-    transfers: ['HKG', 'JNB'],
-  },
-  {
-    cost: 13400,
-    companyName: 's7',
-    companyLogo: './assets/images/s7.svg',
-    travel: 'MOW – HKT',
-    startTravel: '10:45',
-    endTravel: '8.00',
-    timeInTravel: '21ч 15м',
-    transfers: ['HKG'],
-  },
-];
+import { ApiService } from '../../services/Api/api.service';
+import { switchMap } from 'rxjs/operators';
 
 const filters: Array<Filter> = [
   {
@@ -106,9 +75,15 @@ const filters: Array<Filter> = [
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  airFlights: Array<Airflight> = airFlights;
+  tickets: Array<any> = [];
+
+  airlines: Array<any> = [];
+
+  isCalendarShow: boolean = false;
 
   filters: Array<Filter> = filters;
+
+  activeFilter: string = '';
 
   title = 'Aviasales';
 
@@ -116,11 +91,21 @@ export class AppComponent implements OnInit {
 
   subject: Subject<any> = new Subject<any>();
 
-  constructor(private formBuilder: FormBuilder) {
+  @ViewChild('calendar') calendar: any;
+
+  @HostListener('click', ['$event.target']) onClick(e: any) {
+    console.log(this.calendar, typeof this.calendar);
+  }
+
+  constructor(private formBuilder: FormBuilder, private apiService: ApiService) {
     this.filterForm = this.formBuilder.group({
       amountTransfer: new FormControl([]),
       company: new FormControl('All'),
       popularFilter: new FormControl('Cheaper'),
+      thereDate: new FormControl(''),
+      backDate: new FormControl(''),
+      fromPlace: new FormControl(''),
+      wherePlace: new FormControl(''),
     });
   }
 
@@ -134,6 +119,39 @@ export class AppComponent implements OnInit {
     this.filterForm.get('popularFilter')?.valueChanges.subscribe((res) => {
       console.log(res);
     });
+    this.filterForm.get('thereDate')?.valueChanges.subscribe((res) => {
+      console.log(res);
+    });
+    this.filterForm.get('backDate')?.valueChanges.subscribe((res) => {
+      console.log(res);
+    });
+    this.filterForm.get('fromPlace')?.valueChanges.subscribe((res) => {
+      console.log(res);
+    });
+    this.filterForm.get('wherePlace')?.valueChanges.subscribe((res) => {
+      console.log(res);
+    });
+
+    this.apiService
+      .getAllTickets()
+      .pipe(
+        switchMap((res) => {
+          return forkJoin([of(res), this.apiService.getAllCompanies()]);
+        }),
+      )
+      .subscribe(([res, companies]: any) => {
+        console.log(res);
+        res.forEach((ticketData: any) => {
+          let nameCompany: string = '';
+          companies.forEach((company: any) => {
+            if (company.id === ticketData.companyId) {
+              nameCompany = company.name;
+            }
+          });
+          ticketData.info.companyName = nameCompany;
+        });
+        this.tickets = res;
+      });
   }
 
   change(e: any, value: any, filterName: any) {
@@ -159,6 +177,31 @@ export class AppComponent implements OnInit {
 
         i++;
       });
+    }
+  }
+
+  isInputDateActive(e: any): void {
+    console.log(e.target.type);
+  }
+
+  clickInputDate(id: string) {
+    this.activeFilter = id;
+    this.isCalendarShow = !this.isCalendarShow;
+  }
+
+  selectDateTrigger(e: { day: string; dayOfWeek: string; month: string }) {
+    console.log(e.day + ' ' + e.month + ', ' + e.dayOfWeek.toLowerCase());
+    switch (this.activeFilter) {
+      case 'there':
+        this.filterForm
+          .get('thereDate')
+          ?.setValue(e.day + ' ' + e.month + ', ' + e.dayOfWeek.toLowerCase());
+        break;
+      case 'back':
+        this.filterForm
+          .get('backDate')
+          ?.setValue(e.day + ' ' + e.month + ', ' + e.dayOfWeek.toLowerCase());
+        break;
     }
   }
 }

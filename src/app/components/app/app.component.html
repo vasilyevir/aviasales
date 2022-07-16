@@ -2,7 +2,56 @@
   <div class="content">
     <img src="./assets/images/Logo.svg" alt="logo" class="logo"/>
     <div class="main"  [formGroup]="filterForm">
-        <div class="inputs-container">
+      <div class="filter">
+        <div class="filter__container">
+          <div class="filter__element">
+            <input type="text" class="filter__input filter__input_first" placeholder="Откуда" formControlName="fromPlace">
+          </div>
+          <button class="filter__button">
+            <svg width="42" height="42" viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <g filter="url(#filter0_d_0_1)">
+                <rect x="8" y="6" width="26" height="26" rx="13" fill="#2196F3"/>
+              </g>
+              <path d="M17 16.5H16.5V17V17.7929L14.7071 16L16.5 14.2071V15V15.5H17H26.5V16.5H17Z" stroke="white"/>
+              <path d="M25 21.5H25.5V21V20.2071L27.2929 22L25.5 23.7929V23V22.5H25H15.5V21.5H25Z" stroke="white"/>
+              <defs>
+                <filter id="filter0_d_0_1" x="0" y="0" width="42" height="42" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                  <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+                  <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+                  <feOffset dy="2"/>
+                  <feGaussianBlur stdDeviation="4"/>
+                  <feComposite in2="hardAlpha" operator="out"/>
+                  <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
+                  <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_0_1"/>
+                  <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_0_1" result="shape"/>
+                </filter>
+              </defs>
+            </svg>
+          </button>
+          <div class="filter__element">
+            <input type="text" class="filter__input" placeholder="Куда" formControlName="wherePlace">
+          </div>
+          <div class="filter__element filter__element_date" (click)="clickInputDate('there')">
+            <input
+              formControlName="thereDate"
+              class="filter__input filter__input_date"
+              type="text"
+              [placeholder]="'Туда'"
+            >
+          </div>
+          <div class="filter__element filter__element_date" (click)="clickInputDate('back')">
+            <input
+              formControlName="backDate"
+              class="filter__input filter__input_last filter__input_date"
+              type="text"
+              [placeholder]="'Обратно'"
+            >
+          </div>
+          <app-date-select *ngIf="isCalendarShow" #calendar (onSelectDate)="selectDateTrigger($event)"></app-date-select>
+        </div>
+      </div>
+
+      <div class="inputs-container">
           <div class="input">
             <h2 class="input__header">{{filters[0].title}}</h2>
             <div class="input__container" *ngFor="let valueInput of filters[0].value; let i = index">
@@ -51,7 +100,7 @@
             </label>
           </div>
           <div class="air-flights__flight-container">
-            <app-airflight *ngFor="let airFlight of airFlights" [airFlight]="airFlight"></app-airflight>
+            <app-airflight *ngFor="let airFlight of tickets" [airFlight]="airlines" [tickets]="airFlight"></app-airflight>
           </div>
           <button class="button">Показать еще 5 билетов</button>
         </div>

@@ -1,0 +1,19 @@
+<div class="calendar">
+   <div class="calendar__month-year">
+     <form [formGroup]="actualMonthAndYearControl">
+       <select autocomplete="on" formControlName="date">
+         <option *ngFor="let month of selectMonthArray" value="{{month.text}}">
+           {{month.text}}
+         </option>
+       </select>
+     </form>
+   </div>
+  <div class="calendar__days-week">
+    <p class="calendar__day-week" *ngFor="let day of daysOfWeek">{{day}}</p>
+  </div>
+  <div class="calendar__days-month">
+    <p (click)="selectDateClick(dayNum)" class="calendar__day" [class.calendar__day_active]="day === dayNum" *ngFor="let dayNum of allDaysInMonth">
+      {{dayNum !== 0 ? dayNum : ''}}
+    </p>
+  </div>
+</div>

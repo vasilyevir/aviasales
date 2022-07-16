@@ -1,20 +1,20 @@
 <div class="air-flight">
   <div class="air-flight__upper-row">
     <p class="air-flight__costs">{{costAirFlight()}}</p>
-    <img class="air-flight__logo-company" src="{{airFlight.companyLogo}}" alt="Logo company">
+    <img class="air-flight__logo-company" src="{{getLogo()}}" alt="Logo company">
   </div>
   <div class="air-flight__bottom-row">
     <div class="air-flight__information-container">
-      <p class="air-flight__title-information">{{airFlight.travel}}</p>
-      <p>{{airFlight.startTravel + ' - ' + airFlight.endTravel}}</p>
+      <p class="air-flight__title-information">{{tickets.info.origin + ' - ' + tickets.info.destination}}</p>
+      <p>{{getActualTimeFlight(tickets.info.dateStart) + ' - ' + getActualTimeFlight(tickets.info.dateEnd)}}</p>
     </div>
     <div class="air-flight__information-container">
       <p class="air-flight__title-information">В пути</p>
-      <p>{{airFlight.timeInTravel}}</p>
+      <p>{{getActualTimeDuration(tickets.info.duration)}}</p>
     </div>
     <div class="air-flight__information-container">
       <p class="air-flight__title-information">{{amountTransfers()}}</p>
-      <p *ngIf="this.airFlight.transfers.length > 0">{{transferInformation()}}</p>
+      <p *ngIf="tickets.info.stops.length > 0">{{transferInformation()}}</p>
     </div>
   </div>
   <div></div>
