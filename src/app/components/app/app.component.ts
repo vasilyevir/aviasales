@@ -126,7 +126,6 @@ export class AppComponent implements OnInit {
         }),
       )
       .subscribe(([res, companies]: any) => {
-        console.log(res);
         res.forEach((ticketData: any) => {
           let nameCompany: string = '';
           companies.forEach((company: any) => {
