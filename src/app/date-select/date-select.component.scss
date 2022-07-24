@@ -1,0 +1,94 @@
+:host {
+  position: absolute;
+  top: 62px;
+  right: 0;
+  height: min-content;
+  width: 320px;
+}
+
+.calendar {
+  width: 100%;
+  height: 100%;
+  background: #FFFFFF;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 0 0 10px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  box-sizing: border-box;
+  padding: 20px 34px;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 20px;
+  font-style: normal;
+  text-transform: uppercase;
+  &__month-year {
+    color: #2196F3;
+  }
+  &__month-option {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 20px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #2196F3;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    background: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    &::-ms-expand {
+      display: none;
+    }
+  }
+  &__days-week {
+    margin-top: 7px;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    width: 100%;
+    color: #9EA9B7;
+  }
+  &__day-week {
+    width: 19px;
+    margin: auto;
+    text-align: center;
+  }
+  &__days-month {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 10px 0;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    grid-template-rows: repeat(auto-fill, 20px);
+
+  }
+  &__day {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    margin: auto;
+    text-align: center;
+    &_active {
+      background: #008EFF;
+      color: #FFFFFF;
+      border-radius: 10px;
+      background-size: 30px 30px;
+    }
+    &:hover {
+      background: #008EFF;
+      color: #FFFFFF;
+      border-radius: 10px;
+      background-size: 30px 30px;
+    }
+  }
+}
