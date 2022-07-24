@@ -26,6 +26,28 @@
   &__month-year {
     color: #2196F3;
   }
+  &__month-option {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 20px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #2196F3;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    background: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    &::-ms-expand {
+      display: none;
+    }
+  }
   &__days-week {
     margin-top: 7px;
     display: grid;

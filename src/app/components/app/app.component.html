@@ -100,9 +100,9 @@
             </label>
           </div>
           <div class="air-flights__flight-container">
-            <app-airflight *ngFor="let airFlight of tickets" [airFlight]="airlines" [tickets]="airFlight"></app-airflight>
+            <app-airflight *ngFor="let airFlight of tickets| slice: 0: lastTicket" [airFlight]="airlines" [tickets]="airFlight"></app-airflight>
           </div>
-          <button class="button">Показать еще 5 билетов</button>
+          <button class="button" (click)="showMoreTickets()">Показать еще {{addNumberTickets}} билетов</button>
         </div>
     </div>
   </div>

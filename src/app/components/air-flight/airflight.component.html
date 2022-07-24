@@ -6,11 +6,11 @@
   <div class="air-flight__bottom-row">
     <div class="air-flight__information-container">
       <p class="air-flight__title-information">{{tickets.info.origin + ' - ' + tickets.info.destination}}</p>
-      <p>{{getActualTimeFlight(tickets.info.dateStart) + ' - ' + getActualTimeFlight(tickets.info.dateEnd)}}</p>
+      <p>{{getActualTimeFlight(tickets.info.dateStart, '') + ' - ' + getActualTimeFlight(tickets.info.dateEnd, '')}}</p>
     </div>
     <div class="air-flight__information-container">
       <p class="air-flight__title-information">В пути</p>
-      <p>{{getActualTimeDuration(tickets.info.duration)}}</p>
+      <p>{{getActualTimeFlight(tickets.info.duration, 'flightTime')}}</p>
     </div>
     <div class="air-flight__information-container">
       <p class="air-flight__title-information">{{amountTransfers()}}</p>

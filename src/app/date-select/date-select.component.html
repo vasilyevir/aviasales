@@ -1,7 +1,7 @@
 <div class="calendar">
    <div class="calendar__month-year">
      <form [formGroup]="actualMonthAndYearControl">
-       <select autocomplete="on" formControlName="date">
+       <select autocomplete="on" formControlName="date" class="calendar__month-option">
          <option *ngFor="let month of selectMonthArray" value="{{month.text}}">
            {{month.text}}
          </option>

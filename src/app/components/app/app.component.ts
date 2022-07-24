@@ -85,6 +85,10 @@ export class AppComponent implements OnInit {
 
   activeFilter: string = '';
 
+  lastTicket: number = 5;
+
+  addNumberTickets: number = 5;
+
   title = 'Aviasales';
 
   filterForm: FormGroup;
@@ -110,26 +114,8 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.filterForm.get('company')?.valueChanges.subscribe((res) => {
-      console.log(res);
-    });
-    this.filterForm.get('amountTransfer')?.valueChanges.subscribe((res) => {
-      console.log(res);
-    });
-    this.filterForm.get('popularFilter')?.valueChanges.subscribe((res) => {
-      console.log(res);
-    });
-    this.filterForm.get('thereDate')?.valueChanges.subscribe((res) => {
-      console.log(res);
-    });
-    this.filterForm.get('backDate')?.valueChanges.subscribe((res) => {
-      console.log(res);
-    });
-    this.filterForm.get('fromPlace')?.valueChanges.subscribe((res) => {
-      console.log(res);
-    });
-    this.filterForm.get('wherePlace')?.valueChanges.subscribe((res) => {
-      console.log(res);
+    this.filterForm.valueChanges.subscribe((res) => {
+      console.log(res, '//is result');
     });
 
     this.apiService
@@ -180,10 +166,6 @@ export class AppComponent implements OnInit {
     }
   }
 
-  isInputDateActive(e: any): void {
-    console.log(e.target.type);
-  }
-
   clickInputDate(id: string) {
     this.activeFilter = id;
     this.isCalendarShow = !this.isCalendarShow;
@@ -203,5 +185,9 @@ export class AppComponent implements OnInit {
           ?.setValue(e.day + ' ' + e.month + ', ' + e.dayOfWeek.toLowerCase());
         break;
     }
+  }
+
+  showMoreTickets(): void {
+    this.lastTicket += this.addNumberTickets;
   }
 }

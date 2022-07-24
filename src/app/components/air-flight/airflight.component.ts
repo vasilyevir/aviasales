@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { getActualTime, numWord } from '../../utils/helpers';
 
 @Component({
   selector: 'app-airflight',
@@ -14,27 +15,25 @@ export class AirflightComponent implements OnInit {
     return `./assets/images/${this.tickets.info.companyName}.svg`;
   }
 
-  getActualTimeDuration(time: number): string {
+  getActualTimeFlight(time: number, type: string): string {
     const date = new Date(time);
-    return date.getHours() + 'ч ' + date.getMinutes() + 'м';
-  }
-
-  getActualTimeFlight(time: number): string {
-    const date = new Date(time);
-    return date.getHours() + ':' + date.getMinutes();
+    return getActualTime(date, type);
   }
 
   costAirFlight(): string {
-    let showCost = 'Р';
-    let costsAirFlight = this.tickets.price;
-    while (costsAirFlight > 0) {
-      showCost = (costsAirFlight % 1000) + ' ' + showCost;
-      costsAirFlight = Math.floor(costsAirFlight / 1000);
-    }
-    return showCost;
+    return new Intl.NumberFormat('ru-RU', {
+      style: 'currency',
+      currency: 'RUB',
+      maximumFractionDigits: 0,
+    }).format(this.tickets.price);
   }
 
   amountTransfers(): string {
+    return (
+      this.tickets.info.stops.length +
+      ' ' +
+      numWord(this.tickets.info.stops.length, ['пересадок', 'пересадка', 'пересадки'])
+    );
     if (this.tickets.info.stops.length > 1) {
       return this.tickets.info.stops.length + ' Пересадки';
     } else if (this.tickets.info.stops.length > 0) {
